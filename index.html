@@ -402,19 +402,21 @@ input[type=range].vol-slider::-webkit-slider-thumb {
 .tl-card { background:var(--white); border-radius:14px; overflow:hidden; box-shadow:0 3px 20px rgba(15,42,74,.09),0 1px 4px rgba(15,42,74,.05); }
 
 .tl-photo { width:100%; aspect-ratio:16/9; position:relative; background:var(--blue-pale); overflow:hidden; }
-.tl-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:2; }
-.tl-photo img[src=""], .tl-photo img:not([src]) { display:none; }
+.tl-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* fallback shown if image missing */
+.tl-photo img[src=""], .tl-photo img:not([src]) { display: none; }
 
 .photo-ph {
   width:100%; height:100%;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   background: linear-gradient(135deg,#d5eaf9 0%,#bdd4ed 100%);
-  gap:10px; position:absolute; inset:0; z-index:1;
+  gap:10px; position:absolute; inset:0; z-index:0;
 }
 .ph-icon { width:40px; height:40px; border-radius:50%; border:1.5px dashed var(--blue-light); display:flex; align-items:center; justify-content:center; }
 .ph-icon svg { width:18px; height:18px; stroke:var(--blue-soft); fill:none; stroke-width:1.5; stroke-linecap:round; }
 .photo-ph p { font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue-soft); font-weight:300; }
-.photo-grad { position:absolute; bottom:0; left:0; right:0; height:45%; background:linear-gradient(to top,rgba(10,31,56,.4) 0%,transparent 100%); z-index:3; }
+.photo-grad { position:absolute; bottom:0; left:0; right:0; height:45%; background:linear-gradient(to top,rgba(10,31,56,.4) 0%,transparent 100%); z-index:1; }
 
 .tl-body { padding:1rem 1.15rem 1.25rem; }
 .tl-badge { display:block; font-size:.58rem; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); margin-bottom:.45rem; }
@@ -438,7 +440,6 @@ input[type=range].vol-slider::-webkit-slider-thumb {
   .tl-item:nth-child(even) .tl-tag::before { display:none; }
   .tl-item:nth-child(even) .tl-tag::after { content:''; display:block; width:16px; height:1px; background:var(--blue-light); }
   .tl-photo { aspect-ratio:3/4; }
-  .tl-photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .tl-body { display:none; }
   .tl-body-desk { display:flex !important; flex-direction:column; justify-content:center; }
 }
@@ -525,7 +526,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
 
 <!-- audio element — ganti src & edit judul/artis di bawah -->
 <audio id="bgAudio" loop>
-  <source src="Nadhif-Basalamah-kota-ini-tak-sama-tanpamu.mp3" type="audio/mpeg">
+  <source src="backsound.mp3" type="audio/mpeg">
 </audio>
 
 <!-- ═══════ HERO ═══════ -->
@@ -579,9 +580,9 @@ input[type=range].vol-slider::-webkit-slider-thumb {
           <p>sma.jpeg</p>
         </div>
         <img src="sma.jpeg" alt="Dulu bareng" loading="lazy"
-          onerror="this.style.display='none'"
-          onload="document.getElementById('ph-dulu').style.display='none';this.style.display='block'"
-          style="width:100%;aspect-ratio:3/4;object-fit:cover;display:none;border-radius:14px;">
+          onerror="this.style.display='none';document.getElementById('ph-dulu').style.display='flex'"
+          onload="document.getElementById('ph-dulu').style.display='none'"
+          style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-radius:14px;position:relative;z-index:2;">
         <div class="tn-caption">
           <span class="tn-era">Dulu</span>
           <span class="tn-detail">Waktu masih sekolah</span>
@@ -595,9 +596,9 @@ input[type=range].vol-slider::-webkit-slider-thumb {
           <p>kuliah.jpeg</p>
         </div>
         <img src="kuliah.jpeg" alt="Sekarang bareng" loading="lazy"
-          onerror="this.style.display='none'"
-          onload="document.getElementById('ph-sekarang').style.display='none';this.style.display='block'"
-          style="width:100%;aspect-ratio:3/4;object-fit:cover;display:none;border-radius:14px;">
+          onerror="this.style.display='none';document.getElementById('ph-sekarang').style.display='flex'"
+          onload="document.getElementById('ph-sekarang').style.display='none'"
+          style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-radius:14px;position:relative;z-index:2;">
         <div class="tn-caption">
           <span class="tn-era">Sekarang</span>
           <span class="tn-detail">Beda kampus, hati tetap satu</span>
@@ -630,7 +631,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2020.jpeg</p></div>
-        <img src="2020.jpeg" alt="2020" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2020.jpeg" alt="2020" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -654,7 +655,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2021.jpeg</p></div>
-        <img src="2021.jpeg" alt="2021" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2021.jpeg" alt="2021" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -678,7 +679,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2022.jpeg</p></div>
-        <img src="2022.jpeg" alt="2022" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2022.jpeg" alt="2022" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -702,7 +703,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2023.jpeg</p></div>
-        <img src="2023.jpeg" alt="2023" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2023.jpeg" alt="2023" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -726,7 +727,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2024.jpeg</p></div>
-        <img src="2024.jpeg" alt="2024" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2024.jpeg" alt="2024" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -750,7 +751,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2025.jpeg</p></div>
-        <img src="2025.jpeg" alt="2025" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2025.jpeg" alt="2025" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
@@ -774,7 +775,7 @@ input[type=range].vol-slider::-webkit-slider-thumb {
     <div class="tl-card">
       <div class="tl-photo">
         <div class="photo-ph"><div class="ph-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><p>2026.jpeg</p></div>
-        <img src="2026.jpeg" alt="2026" loading="lazy"" onerror="this.style.display='none'">
+        <img src="2026.jpeg" alt="2026" loading="lazy" onerror="this.style.display='none'">
         <div class="photo-grad"></div>
       </div>
       <div class="tl-body">
